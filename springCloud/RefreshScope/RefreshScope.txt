@@ -1,14 +1,13 @@
-AbsreactBeanFactoryÖĞµÄdoGetBean·½·¨µ÷ÓÃScopeµÄget·½·¨»ñµÃ
+AbsreactBeanFactoryä¸­çš„doGetBeanæ–¹æ³•è°ƒç”¨Scopeçš„getæ–¹æ³•è·å¾—
 
-ConfigurationPropertiesRebinder¼àÌıEnvironmentChangeEventÊÂ¼ş´¥·¢rebind()·½·¨
+ConfigurationPropertiesRebinderç›‘å¬EnvironmentChangeEventäº‹ä»¶è§¦å‘rebind()æ–¹æ³•
 
+RefreshAutoConfigurationç±»
+    1ã€åˆ©ç”¨postProcessBeanDefinitionRegistry()æ–¹æ³•è°ƒç”¨DefaultListableBeanFactoryæ–¹æ³•ä¸­çš„registerBeanDefinitionæ³¨å…¥RefreshScopeç±»çš„å®šä¹‰
 
-RefreshAutoConfigurationÀà
-    1¡¢ÀûÓÃpostProcessBeanDefinitionRegistry()·½·¨µ÷ÓÃDefaultListableBeanFactory·½·¨ÖĞµÄregisterBeanDefinition×¢ÈëRefreshScopeÀàµÄ¶¨Òå
-
-    2¡¢×¢ÈëRefreshEventListener¼àÌıRefreshEventÊÂ¼ş
-
+    2ã€æ³¨å…¥RefreshEventListenerç›‘å¬RefreshEventäº‹ä»¶
 
 
+MvcEndpointSecurityInterceptorä¸­çš„preHandle()å®‰å…¨æ‹¦æˆª
 
     
