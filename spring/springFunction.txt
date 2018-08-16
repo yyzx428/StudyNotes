@@ -1,0 +1,1 @@
+Introspector.decapitalize() -> spring对类名进行操作然后当作bean的Id

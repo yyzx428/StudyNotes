@@ -1,0 +1,14 @@
+AbsreactBeanFactory中的doGetBean方法调用Scope的get方法获得
+
+ConfigurationPropertiesRebinder监听EnvironmentChangeEvent事件触发rebind()方法
+
+
+RefreshAutoConfiguration类
+    1、利用postProcessBeanDefinitionRegistry()方法调用DefaultListableBeanFactory方法中的registerBeanDefinition注入RefreshScope类的定义
+
+    2、注入RefreshEventListener监听RefreshEvent事件
+
+
+
+
+    
