@@ -67,7 +67,7 @@ AbstractApplication中的refresh()方法
 	  
 	  实现了的调用之后加入registryPostProcessors(LinkedList)集合,不是的就加入regularPostProcessors（LinkedList）集合中。
 	  ConfigurationWarningsApplicationContextInitializer和 SharedMetadataReaderFactoryContextInitializer加入
-	   registryPostProcessors集合；
+	  registryPostProcessors集合；
 	   
 	  ConfigFileApplicationListener加入regularPostProcessors集合;
 	  
@@ -112,4 +112,28 @@ AbstractApplication中的refresh()方法
      直接调用参入的beanFactoryPostProcessors中实现BeanFactoryPostProcessor接口的postProcessBeanFactory方法；
   }
   
-  从beanFactory中查找BeanFactoryPostProcessor.class
+  从beanFactory中找寻BeanFactoryPostProcessor.class对应的BeanName。
+  (这里找到了PropertySourcesPlaceholderConfigurer.class 、 ConfigurationPropertiesBindingPostProcessor.class
+  和 ConfigurationClassPostProcessor.class)
+  
+  for(遍历找出来的BeanName){
+  	if(processedBeans集合中存在){
+	}
+        else if(实现了PriorityOrdered接口){
+	  把实例加入到priorityOrderedPostProcessors(ArrayList)集合
+	}
+	else if(实现了Order接口){
+	  把BeanName加入orderedPostProcessorNames集合中。
+	}else {
+	  把BeanName加入nonOrderedPostProcessorNames（ArrayList）集合中。
+	}
+  }
+  
+  根据PriorityOrdered接口对priorityOrderedPostProcessors(ArrayList)集合排序。
+  调用集中调用集合中的实例实现BeanFactoryPostProcessor接口的postProcessBeanFactory方法。
+  
+  for(遍历orderedPostProcessorNames(ArrayList)集合){
+    根据BeanName从beanFactory中获得实例加入到orderedPostProcessors(ArrayList)集合中
+  }
+  
+  
