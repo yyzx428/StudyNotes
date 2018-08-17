@@ -53,3 +53,12 @@ AbstractApplication中的refresh()方法
     }      
     检测beanFactory中是否存在systemProperties对应的Bean对象   同上   
     检测beanFactory中是否存在systemEnvironment对应的Bean对象  同上   
+    
+    
+4.postProcessBeanFactory()   根据上下文对象来  
+
+5.invokeBeanFactoryPostProcessors（）
+  最开始处理器有3个beanFactoryPostProcessors包括ConfigurationWarningsApplicationContextInitializer、
+                                                SharedMetadataReaderFactoryContextInitializer、
+                                                ConfigFileApplicationListener。
+                                                
