@@ -188,6 +188,44 @@ AbstractApplication中的refresh()方法
     然后按照排好的顺序添加进入beanFactory中的beanPostProcessors（ArrayList）集合中去。
     
     
+    for（遍历orderedPostProcessorNames）{
+      往orderedPostProcessors（ArrayList）集合中添加实例
+      if（该实例是否实现MergedBeanDefinitionPostProcessor接口）{
+	   往internalPostProcessors（ArrayList）集合中添加实例
+      }
+    }
+     根据Ordered接口对orderedPostProcessors(ArrayList)集合排序。
+     然后按照排好的顺序添加进入beanFactory中的beanPostProcessors（ArrayList）集合中去。
+    
+    for（遍历nonOrderedPostProcessorNames）{
+      往nonOrderedPostProcessors（ArrayList）集合中添加实例
+      if（该实例是否实现MergedBeanDefinitionPostProcessor接口）{
+	   往internalPostProcessors（ArrayList）集合中添加实例
+      }
+    }
+     这里是 ConfigurationPropertiesBeans.class
+     然后再nonOrderedPostProcessors集合中的实例添加进入beanFactory中的beanPostProcessors（ArrayList）集合中去。
+     
+     然后再把internalPostProcessors集合中的实例进行排序。
+     排序后的结构是 1.CommonAnnotationBeanPostProcessor.class
+                   2.AutowiredAnnotationBeanPostProcessor.class
+		   3.RequiredAnnotationBeanPostProcessor.class
+     然后再加入到beanFactory中的beanPostProcessors（ArrayList）集合中去。
+     
+     最后重新加入new ApplicationListenerDetector(applicationContext)到beanFactory中的beanPostProcessors（ArrayList）集合中去。
+     这是为了保证这个类最后执行。
+     
+     最后beanFactory中的beanPostProcessors中的顺序是 1.ApplicationContextAwareProcessor.class
+                                                   2.ConfigurationClassPostProcessor中的静态内部类ImportAwareBeanPostProcessor.class
+						   3.PostProcessorRegistrationDelegate中的静态内部类BeanPostProcessorChecker.class
+						   4.ConfigurationPropertiesBindingPostProcessor.class
+						   5.ConfigurationPropertiesBeans.class
+						   6.CommonAnnotationBeanPostProcessor
+						   7.AutowiredAnnotationBeanPostProcessor.class
+						   8.RequiredAnnotationBeanPostProcessor.class
+						   9.ApplicationListenerDetector.class
+    
+    
 7.initMessageSource()
 
   
