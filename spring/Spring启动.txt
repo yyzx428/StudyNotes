@@ -41,7 +41,7 @@ AbstractApplication中的refresh()方法    该上下文对象为AnnotationConfi
              从singletonFactories和earlySingletonObjects(Map)集合移除
              加入registeredSingletons(Set)结合
 	}
-        if(是否在启动阶段){
+        if(是否在启动阶段（其实就是判断beanFactory的alreadyCreated（Set）集合是否为空）){
               ...
         }else{
            if(beanDefinitionMap集合是否包含(environment)对象){
@@ -231,15 +231,21 @@ AbstractApplication中的refresh()方法    该上下文对象为AnnotationConfi
      创建DelegatingMessageSource对象。
      设置setParentMessageSource(这里是null)；
      给当前上下文中的messageSource赋以上面这个值。
-     beanFactory注册
-     调用DefaultListableBeanFactory类中的registerSingleton方法{
-        再调用父类DefaultSingletonBeanRegistryregisterSingleton方法{
-             加入singletonObjects（Map）
-             从singletonFactories和earlySingletonObjects(Map)集合移除
-             加入registeredSingletons(Set)结合
-	}
-        
-     }
+     beanFactory注册(messageSource,给当前上下文中的messageSource)；
+	     一下是注册所调用的方法
+	     调用DefaultListableBeanFactory类中的registerSingleton方法{
+		再调用父类DefaultSingletonBeanRegistryregisterSingleton方法{
+		     加入singletonObjects（Map）
+		     从singletonFactories和earlySingletonObjects(Map)集合移除
+		     加入registeredSingletons(Set)结合
+		}
+		if(是否在启动阶段（其实就是判断beanFactory的alreadyCreated（Set）集合是否为空）){
+
+		}else{
+		   ...
+		}
+		清空allBeanNamesByType（Map）、singletonBeanNamesByType(Map)这2个集合
+	     }
    }
    
 8.initApplicationEventMulticaster()
