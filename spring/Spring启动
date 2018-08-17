@@ -1,8 +1,8 @@
 AbstractApplication中的refresh()方法
 
 1.prepareRefresh()
-    getEnvironment()
-      会初始化environment=new StandardEnvironment()在父类AbstractEnvironment的构造函数中调用customizePropertySources()方法
+    getEnvironment()如果没有环境变量就会进行初始化
+          environment=new StandardEnvironment()在父类AbstractEnvironment的构造函数中调用customizePropertySources()方法
              再调用一下2个方法把环境参数都加载到内存中来
              System.getProperties() 主要获得当前java进程中的环境变量例如vm启动传入的参数。
              和
