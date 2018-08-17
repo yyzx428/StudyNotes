@@ -154,6 +154,34 @@ AbstractApplication中的refresh()方法
      设置beanFactory的setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()传入的是当前上下文的加载器))
   }
   
+6.registerBeanPostProcessors()
+    从beanFactory中获取BeanPostProcessor.class中所有的BeanNames
+    然后再beanFactory的beanPostProcessors（ArrayList）集合中添加 
+    new BeanPostProcessorChecker(beanFactory,
+                          （beanProcessorTargetCount = beanFactory.getBeanPostProcessorCount() + 1 + postProcessorNames.
+    
+    BeanNames中包括 ConfigurationPropertiesBeans.class 
+    
+    for（遍历BeanNames）{
+      if(实现了PriorityOrdered接口){
+         往priorityOrderedPostProcessors（ArrayList）集合中添加实例
+	 if（该实例是否实现MergedBeanDefinitionPostProcessor接口）{
+	   往internalPostProcessors（ArrayList）集合中添加实例
+	 }
+      }else if(实现Order接口){
+        往orderedPostProcessorNames（ArrayList）集合中添加Name
+      }else{
+        往nonOrderedPostProcessorNames（ArrayList）集合中添加Name
+      }
+    }
+    
+    根据PriorityOrdered接口对priorityOrderedPostProcessors(ArrayList)集合排序。
+    然后按照排好的顺序添加进入beanFactory中的beanPostProcessors（ArrayList）集合中去。
+    
+    
+7.initMessageSource()
+
+  
   
   
   
