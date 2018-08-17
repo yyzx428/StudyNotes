@@ -24,7 +24,7 @@ AbstractApplication中的refresh()方法
     
     然后再beanFactory中的resolvableDependencies集合(Map)中添加  BeanFactory.class -> beanFactory(DefaultListableBeanFactory类)
                                                               ResourceLoader.class -> 当前上下文(AnnotationConfigApplicationContext或者
-                                                                                                AnnotationConfigEmbeddedWebApplicationContext)
+								                   AnnotationConfigEmbeddedWebApplicationContext)
                                                               ApplicationEventPublisher.class -> 当前上下文（对应的对象同上 ）
                                                               ApplicationContext.class -> 当前上下文（对应的对象同上 ）
     
@@ -148,5 +148,12 @@ AbstractApplication中的refresh()方法
   调用DefaultListableBeanFactory类中的clearMetadataCache()
      清空AbstractBeanFactory中的mergedBeanDefinitions(Map)集合中没有在alreadyCreated（Set）集合中的元素
      清空DefaultListableBeanFactory中的allBeanNamesByType(Map)、singletonBeanNamesByType(Map)集合
+  
+  if(beanFactory的tempClassLoader为空 && beanFactory中存在loadTimeWeaver名称对应Bean对象){
+     在beanFactory中beanPostProcessors集合（ArrayList）加入LoadTimeWeaverAwareProcessor处理器
+     设置beanFactory的setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()传入的是当前上下文的加载器))
+  }
+  
+  
   
   
