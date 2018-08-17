@@ -281,9 +281,11 @@ AbstractApplication中的refresh()方法    该上下文对象为AnnotationConfi
 	     }
     }
 
-9.onRefresh()
+9.onRefresh() 根据上下文对象来。
 
 10.registerListeners()
+   
+   
 
 11.finishBeanFactoryInitialization()
 
