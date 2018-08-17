@@ -61,13 +61,15 @@ AbstractApplication中的refresh()方法
 
  if( 传进来的beanFactory是BeanDefinitionRegistry类型 ){
 	  最开始处理器有3个beanFactoryPostProcessors包括ConfigurationWarningsApplicationContextInitializer、
-													SharedMetadataReaderFactoryContextInitializer、
-													ConfigFileApplicationListener。
+						       SharedMetadataReaderFactoryContextInitializer、
+						       ConfigFileApplicationListener。
 	  看以上3个处理器实现了BeanDefinitionRegistryPostProcessor接口的postProcessBeanDefinitionRegistry()方法没。
 	  
 	  实现了的调用之后加入registryPostProcessors(LinkedList)集合,不是的就加入regularPostProcessors（LinkedList）集合中。
-	  ConfigurationWarningsApplicationContextInitializer和 SharedMetadataReaderFactoryContextInitializer加入registryPostProcessors集合；
-	  ConfigFileApplicationListener加入regularPostProcessors集合
+	  ConfigurationWarningsApplicationContextInitializer和 SharedMetadataReaderFactoryContextInitializer加入
+	   registryPostProcessors集合；
+	   
+	  ConfigFileApplicationListener加入regularPostProcessors集合;
 	  
 	  找BeanDefinitionRegistryPostProcessor.class，并实现了PriorityOrdered接口的方法{
 	   从beanFactory中找寻BeanDefinitionRegistryPostProcessor.class对应的BeanName。
@@ -81,7 +83,8 @@ AbstractApplication中的refresh()方法
 		然后根据PriorityOrdered接口进行集合排序；
 		然后把加入registryPostProcessors集合中去；
 	 
-		然后集中调用priorityOrderedPostProcessors集合中实例实现的BeanDefinitionRegistryPostProcessor接口的postProcessBeanDefinitionRegistry（）方法；
+		然后集中调用priorityOrderedPostProcessors集合中实例实现的BeanDefinitionRegistryPostProcessor接口的  
+		postProcessBeanDefinitionRegistry（）方法；
 	 }
 	 
 	 找BeanDefinitionRegistryPostProcessor.class，并实现了order接口的方法{
@@ -96,7 +99,8 @@ AbstractApplication中的refresh()方法
 		然后根据ordered接口进行集合排序；
 		然后把加入registryPostProcessors集合中去；
 	 
-		然后集中调用orderedPostProcessors集合中实例实现的BeanDefinitionRegistryPostProcessor接口的postProcessBeanDefinitionRegistry（）方法；
+		然后集中调用orderedPostProcessors集合中实例实现的BeanDefinitionRegistryPostProcessor接口的
+		postProcessBeanDefinitionRegistry（）方法；
 	  }
 	  
 	  
@@ -104,4 +108,8 @@ AbstractApplication中的refresh()方法
 	  （这里找到的是ConfigurationClassPostProcessor类，所以直接进入下一步）
 	  
 	  分别调用registryPostProcessors集合和regularPostProcessors结合中实现BeanFactoryPostProcessor接口的postProcessBeanFactory方法。
+  }else{
+     直接调用参入的beanFactoryPostProcessors中实现BeanFactoryPostProcessor接口的postProcessBeanFactory方法；
   }
+  
+  从beanFactory中查找BeanFactoryPostProcessor.class
