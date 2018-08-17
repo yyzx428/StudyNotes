@@ -29,3 +29,26 @@ AbstractApplication中的refresh()方法
                                                               ApplicationContext.class -> 当前上下文（对应的对象同上 ）
     
     在beanFactory中beanPostProcessors集合（ArrayList）加入 ApplicationListenerDetector 处理器。
+    
+    检测beanFactory是否有loadTimeWeaver的Bean  
+         if(有的话){
+           在beanFactory中beanPostProcessors集合（ArrayList）加入LoadTimeWeaverAwareProcessor处理器
+           设置beanFactory的setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()传入的是当前上下文的加载器))
+         }
+         
+         
+    检测beanFactory中是否存在environment对应的Bean对象   {
+       调用DefaultListableBeanFactory类中的registerSingleton方法
+             加入singletonObjects（Map）
+             从singletonFactories和earlySingletonObjects(Map)集合移除
+             加入registeredSingletons(Set)结合
+             if(是否在启动阶段){
+              ...
+             }else{
+                if(beanDefinitionMap集合是否包含(environment)对象){
+                   加入manualSingletonNames集合
+               }
+           }
+    }      
+    检测beanFactory中是否存在systemProperties对应的Bean对象   同上   
+    检测beanFactory中是否存在systemEnvironment对应的Bean对象  同上   
