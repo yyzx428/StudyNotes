@@ -254,8 +254,42 @@ AbstractApplication中的refresh()方法    该上下文对象为AnnotationConfi
    }
    
 8.initApplicationEventMulticaster()
+    if(beanFactory中是否含有applicationEventMulticaster对应的beanName){
+      .....
+    }else{
+      创建一个新的new SimpleApplicationEventMulticaster(beanFactory)；
+      然后赋值给当前上下文的applicationEventMulticaster对象；
+      beanFactory注册(messageSource,给当前上下文中的messageSource)；
+	     一下是注册所调用的方法
+	     调用DefaultListableBeanFactory类中的registerSingleton方法{
+		再调用父类DefaultSingletonBeanRegistryregisterSingleton方法{
+		     加入singletonObjects（Map）
+		     从singletonFactories和earlySingletonObjects(Map)集合移除
+		     加入registeredSingletons(Set)结合
+		}
+		if(是否在启动阶段（其实就是判断beanFactory的alreadyCreated（Set）集合是否为空）){
+		    if(beanFactory中的beanDefinitionMap集合是否有applicationEventMulticaster名字的Bean){
+		       为了迭代安全，这里重新创建一个updatedSingletons（LinkedHashSet）集合对象。
+		       把manualSingletonNames集合中的对象添加进去。
+		       再添加applicationEventMulticaster目标BeanName。
+		       然后再将新创建的对象赋值给beanFactory中的manualSingletonNames。
+		    }
+		}else{
+		   ...
+		}
+		清空allBeanNamesByType（Map）、singletonBeanNamesByType(Map)这2个集合
+	     }
+    }
 
-  
+9.onRefresh()
+
+10.registerListeners()
+
+11.finishBeanFactoryInitialization()
+
+12.finishRefresh()
+
+13.resetCommonCaches()
   
   
   
