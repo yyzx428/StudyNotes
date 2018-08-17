@@ -58,6 +58,8 @@ AbstractApplication中的refresh()方法
 4.postProcessBeanFactory()   根据上下文对象来  
 
 5.invokeBeanFactoryPostProcessors（）
+
+ if( 传进来的beanFactory是BeanDefinitionRegistry类型 ){
   最开始处理器有3个beanFactoryPostProcessors包括ConfigurationWarningsApplicationContextInitializer、
                                                 SharedMetadataReaderFactoryContextInitializer、
                                                 ConfigFileApplicationListener。
@@ -102,4 +104,4 @@ AbstractApplication中的refresh()方法
   （这里找到的是ConfigurationClassPostProcessor类，所以直接进入下一步）
   
   分别调用registryPostProcessors集合和regularPostProcessors结合中实现BeanFactoryPostProcessor接口的postProcessBeanFactory方法。
-  
+  }
