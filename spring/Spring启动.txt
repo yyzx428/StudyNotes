@@ -130,10 +130,23 @@ AbstractApplication中的refresh()方法
   }
   
   根据PriorityOrdered接口对priorityOrderedPostProcessors(ArrayList)集合排序。
-  调用集中调用集合中的实例实现BeanFactoryPostProcessor接口的postProcessBeanFactory方法。
+  集中调用集合中的实例实现BeanFactoryPostProcessor接口的postProcessBeanFactory方法。
   
   for(遍历orderedPostProcessorNames(ArrayList)集合){
     根据BeanName从beanFactory中获得实例加入到orderedPostProcessors(ArrayList)集合中
   }
+  
+  根据Ordered接口对orderedPostProcessors(ArrayList)集合排序。
+  集中调用集合中的实例实现BeanFactoryPostProcessor接口的postProcessBeanFactory方法。
+  
+  for(遍历nonOrderedPostProcessorNames(ArrayList)集合){
+    根据BeanName从beanFactory中获得实例加入到nonOrderedPostProcessors(ArrayList)集合中
+  }
+  
+  集中调用nonOrderedPostProcessors集合中的实例实现BeanFactoryPostProcessor接口的postProcessBeanFactory方法。
+  
+  调用DefaultListableBeanFactory类中的clearMetadataCache()
+     清空AbstractBeanFactory中的mergedBeanDefinitions(Map)集合中没有在alreadyCreated（Set）集合中的元素
+     清空DefaultListableBeanFactory中的allBeanNamesByType(Map)、singletonBeanNamesByType(Map)集合
   
   
