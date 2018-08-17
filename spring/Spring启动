@@ -49,6 +49,7 @@ AbstractApplication中的refresh()方法
                    加入manualSingletonNames集合
                }
            }
+       清空allBeanNamesByType（Map）、singletonBeanNamesByType(Map)这2个集合
     }      
     检测beanFactory中是否存在systemProperties对应的Bean对象   同上   
     检测beanFactory中是否存在systemEnvironment对应的Bean对象  同上   
