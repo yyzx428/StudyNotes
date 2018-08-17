@@ -160,7 +160,11 @@ AbstractApplication中的refresh()方法
     new BeanPostProcessorChecker(beanFactory,
                           （beanProcessorTargetCount = beanFactory.getBeanPostProcessorCount() + 1 + postProcessorNames.
     
-    BeanNames中包括 ConfigurationPropertiesBeans.class 
+    BeanNames中包括  AutowiredAnnotationBeanPostProcessor.class、
+		    RequiredAnnotationBeanPostProcessor.class、
+		    CommonAnnotationBeanPostProcessor.class、
+		    ConfigurationPropertiesBindingPostProcessor.class、
+		    ConfigurationPropertiesBeans.class
     
     for（遍历BeanNames）{
       if(实现了PriorityOrdered接口){
