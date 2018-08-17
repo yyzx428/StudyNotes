@@ -6,4 +6,26 @@ AbstractApplication中的refresh()方法
              再调用一下2个方法把环境参数都加载到内存中来
              System.getProperties() 主要获得当前java进程中的环境变量例如vm启动传入的参数。
              和
-             System.getenv()主要是获得系统的环境变量   2个系统方法，
+             System.getenv()主要是获得系统的环境变量   2个系统方法。
+             
+2.obtainFreshBeanFactory()
+     refreshBeanFactory()调用的是子类GenericApplicationContext中的方法给beanFactory的SerializationId赋以自身的id
+     
+     getBeanFactory()调用子类GenericApplicationContext中的方法
+     
+3.prepareBeanFactory()
+    首先将上下文的ClassLoader(类装载器)传递给beanFactory的内部子类工厂。
+    
+    在beanFactory中beanPostProcessors集合（ArrayList）加入ApplicationContextAwareProcessor 处理器。
+    
+    再beanFactory中的ignoredDependencyInterfaces集合(Set)中添加EnvironmentAware.class 、 EmbeddedValueResolverAware.class 、
+                                                        ResourceLoaderAware.class 、 ApplicationEventPublisherAware.class 、
+                                                        MessageSourceAware.class 、 ApplicationContextAware.class 类
+    
+    然后再beanFactory中的resolvableDependencies集合(Map)中添加  BeanFactory.class -> beanFactory(DefaultListableBeanFactory类)
+                                                              ResourceLoader.class -> 当前上下文(AnnotationConfigApplicationContext或者
+                                                                                                AnnotationConfigEmbeddedWebApplicationContext)
+                                                              ApplicationEventPublisher.class -> 当前上下文（对应的对象同上 ）
+                                                              ApplicationContext.class -> 当前上下文（对应的对象同上 ）
+    
+    在beanFactory中beanPostProcessors集合（ArrayList）加入 ApplicationListenerDetector 处理器。
