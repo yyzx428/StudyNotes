@@ -61,4 +61,45 @@ AbstractApplication中的refresh()方法
   最开始处理器有3个beanFactoryPostProcessors包括ConfigurationWarningsApplicationContextInitializer、
                                                 SharedMetadataReaderFactoryContextInitializer、
                                                 ConfigFileApplicationListener。
-                                                
+  看以上3个处理器实现了BeanDefinitionRegistryPostProcessor接口的postProcessBeanDefinitionRegistry()方法没。
+  
+  实现了的调用之后加入registryPostProcessors(LinkedList)集合,不是的就加入regularPostProcessors（LinkedList）集合中。
+  ConfigurationWarningsApplicationContextInitializer和 SharedMetadataReaderFactoryContextInitializer加入registryPostProcessors集合；
+  ConfigFileApplicationListener加入regularPostProcessors集合
+  
+  找BeanDefinitionRegistryPostProcessor.class，并实现了PriorityOrdered接口的方法{
+   从beanFactory中找寻BeanDefinitionRegistryPostProcessor.class对应的BeanName。
+   （这里找到的是ConfigurationClassPostProcessor类）
+   
+   if(判断这个BeanName是否实现PriorityOrdered接口){
+     并把实例加入priorityOrderedPostProcessors（ArrayList）集合；
+      把这个类的名字加入processedBeans(Set)集合中；
+    } 
+ 
+    然后根据PriorityOrdered接口进行集合排序；
+    然后把加入registryPostProcessors集合中去；
+ 
+    然后集中调用priorityOrderedPostProcessors集合中实例实现的BeanDefinitionRegistryPostProcessor接口的postProcessBeanDefinitionRegistry（）方法；
+ }
+ 
+ 找BeanDefinitionRegistryPostProcessor.class，并实现了order接口的方法{
+   从beanFactory中找寻BeanDefinitionRegistryPostProcessor.class对应的BeanName。
+   （这里找到的是ConfigurationClassPostProcessor类）
+ 
+    if(判断processedBeans中是否包含这个BeanName && 判断这个BeanName是否实现Ordered接口){
+      把找到的实例加入orderedPostProcessors（ArrayList）集合；
+      把这个类的名字加入processedBeans(Set)集合中；
+    } 
+ 
+    然后根据ordered接口进行集合排序；
+    然后把加入registryPostProcessors集合中去；
+ 
+    然后集中调用orderedPostProcessors集合中实例实现的BeanDefinitionRegistryPostProcessor接口的postProcessBeanDefinitionRegistry（）方法；
+  }
+  
+  
+  然后循环去调用beanFactory中所有实现BeanDefinitionRegistryPostProcessor接口的类中的postProcessBeanDefinitionRegistry（）
+  （这里找到的是ConfigurationClassPostProcessor类，所以直接进入下一步）
+  
+  分别调用registryPostProcessors集合和regularPostProcessors结合中实现BeanFactoryPostProcessor接口的postProcessBeanFactory方法。
+  
