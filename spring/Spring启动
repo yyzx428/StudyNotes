@@ -1,0 +1,9 @@
+AbstractApplication中的refresh()方法
+
+1.prepareRefresh()
+    getEnvironment()
+      会初始化environment=new StandardEnvironment()
+             然后会调用
+             System.getProperties() 主要获得当前java进程中的环境变量例如vm启动传入的参数。
+             和
+             System.getenv()主要是获得系统的环境变量   2个系统方法，
