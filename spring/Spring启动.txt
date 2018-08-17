@@ -1,4 +1,4 @@
-AbstractApplication中的refresh()方法
+AbstractApplication中的refresh()方法    该上下文对象为AnnotationConfigApplicationContext.class
 
 1.prepareRefresh()
     getEnvironment()如果没有环境变量就会进行初始化
@@ -35,22 +35,20 @@ AbstractApplication中的refresh()方法
            在beanFactory中beanPostProcessors集合（ArrayList）加入LoadTimeWeaverAwareProcessor处理器
            设置beanFactory的setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()传入的是当前上下文的加载器))
          }
-         
-         
-    检测beanFactory中是否存在environment对应的Bean对象   {
-       调用DefaultListableBeanFactory类中的registerSingleton方法
+    调用DefaultListableBeanFactory类中的registerSingleton方法{
+        再调用父类DefaultSingletonBeanRegistryregisterSingleton方法{
              加入singletonObjects（Map）
              从singletonFactories和earlySingletonObjects(Map)集合移除
              加入registeredSingletons(Set)结合
-             if(是否在启动阶段){
+	}
+        if(是否在启动阶段){
               ...
-             }else{
-                if(beanDefinitionMap集合是否包含(environment)对象){
-                   加入manualSingletonNames集合
-               }
-           }
-       清空allBeanNamesByType（Map）、singletonBeanNamesByType(Map)这2个集合
-    }      
+        }else{
+           if(beanDefinitionMap集合是否包含(environment)对象){
+                 加入manualSingletonNames集合
+        }
+	清空allBeanNamesByType（Map）、singletonBeanNamesByType(Map)这2个集合
+     }    
     检测beanFactory中是否存在systemProperties对应的Bean对象   同上   
     检测beanFactory中是否存在systemEnvironment对应的Bean对象  同上   
     
@@ -227,6 +225,24 @@ AbstractApplication中的refresh()方法
     
     
 7.initMessageSource()
+   if(beanFactory中是否有messageSource对应的bean对象){
+     ....
+   }esle{
+     创建DelegatingMessageSource对象。
+     设置setParentMessageSource(这里是null)；
+     给当前上下文中的messageSource赋以上面这个值。
+     beanFactory注册
+     调用DefaultListableBeanFactory类中的registerSingleton方法{
+        再调用父类DefaultSingletonBeanRegistryregisterSingleton方法{
+             加入singletonObjects（Map）
+             从singletonFactories和earlySingletonObjects(Map)集合移除
+             加入registeredSingletons(Set)结合
+	}
+        
+     }
+   }
+   
+8.initApplicationEventMulticaster()
 
   
   
