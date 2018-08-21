@@ -1,0 +1,2 @@
+SpringFactoriesLoader.loadFactories(Class<T> factoryClass, ClassLoader classLoader)中主要使用loadFactoryNames方法;
+从当前项目下所有的jar中找  META-INF/spring.factories这个文件中找Class<T>对应的一些类名称并通过放射加载类。
