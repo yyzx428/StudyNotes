@@ -1,2 +1,20 @@
 SpringFactoriesLoader.loadFactories(Class<T> factoryClass, ClassLoader classLoader)中主要使用loadFactoryNames方法;
 从当前项目下所有的jar中找  META-INF/spring.factories这个文件中找Class<T>对应的一些类名称并通过放射加载类。
+
+
+GenericTypeResolver.resolveTypeArgument(Class<?> clazz, Class<?> genericIfc);
+例子： 
+    class Student implements A<Application> {
+
+        @Override
+        public void menthod(Application a, String b) {
+
+        }
+    }
+    interface A <T>{
+        void menthod(T a,String b);
+    }
+ GenericTypeResolver.resolveTypeArgument(Student.class,A.class)；  输出的是Application.class这个类
+ 
+ 
+ 
