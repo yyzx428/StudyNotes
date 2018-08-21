@@ -1,1 +1,4 @@
-JMXConnectorServerFactory  
+ConnectorServerFactoryBean在afterPropertiesSet方法调用JMXConnectorServerFactory中的newJMXConnectorServer。
+
+
+BootstrapApplicationListener监听ApplicationEnvironmentPreparedEvent事件。
