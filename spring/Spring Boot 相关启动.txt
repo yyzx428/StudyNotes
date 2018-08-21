@@ -2,3 +2,15 @@ ConnectorServerFactoryBean在afterPropertiesSet方法调用JMXConnectorServerFac
 
 
 BootstrapApplicationListener监听ApplicationEnvironmentPreparedEvent事件。
+
+
+BeanDefinitionLoader用来读取文件加载成BeanBeanDefinition对象
+
+
+AnnotatedBeanDefinitionReader来读取注解
+XmlBeanDefinitionReader来读取xml
+GroovyBeanDefinitionReader这个暂时不知道读取什么
+
+ClassPathBeanDefinitionScanner用来扫描文件  添加了ClassExcludeFilter作为Class排除器
+
+
