@@ -14,3 +14,6 @@ GroovyBeanDefinitionReader 读取Groovy 文件
 ClassPathBeanDefinitionScanner用来扫描文件  添加了ClassExcludeFilter作为Class排除器
 
 
+EurekaJerseyClientImpl
+
+AutoConfigurationExcludeFilter加载METE/spring.factories文件中的EnableAutoConfiguration.class对应的类。
