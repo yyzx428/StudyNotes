@@ -17,3 +17,8 @@ ClassPathBeanDefinitionScanner用来扫描文件  添加了ClassExcludeFilter作
 EurekaJerseyClientImpl
 
 AutoConfigurationExcludeFilter加载METE/spring.factories文件中的EnableAutoConfiguration.class对应的类。
+
+
+
+BackgroundPreinitializer监听SpringApplicationEvent事件当事件是ApplicationStartingEvent并且preinitializationStarted变量为false。
+另外启动一个线程顺序 调用当前类中的内部类。
