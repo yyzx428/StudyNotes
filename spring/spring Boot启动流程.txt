@@ -1,1 +1,23 @@
+spring boot 2.0.0版本
 
+入口函数 SpringApplication.run(Class<?> primarySource,String... args);
+    1.new SpringApplication(primarySource);
+       传入的是SpringApplication(null,primarySources)
+      调用构造函数public SpringApplication(ResourceLoader resourceLoader, Class<?>... primarySources)；
+         1.给自身的变量resourceLoader赋值
+         2.primarySources(Set)集合添加所有的primarySources。
+         3.根据是否存在某些类给webApplicationType赋值。  （这里赋值为WebApplicationType.SERVLET）
+             if(当存在org.springframework.web.reactive.DispatcherHandler类
+             &&  org.springframework.web.servlet.DispatcherServlet和org.glassfish.jersey.server.ResourceConfig都不存在的时候)
+                返回WebApplicationType.REACTIVE枚举
+             esle if(当javax.servlet.Servlet和org.springframework.web.context.ConfigurableWebApplicationContext都存在的时候)
+               返回WebApplicationType.SERVLET
+             else  
+               返回WebApplicationType.NONE
+         4.给自身的List<ApplicationContextInitializer<?>> initializers集合寻找类名称反射加载实例放入集合
+             调用getSpringFactoriesInstances（Class<T> type）方法； 传入ApplicationContextInitializer.class参数
+                调用getSpringFactoriesInstances（Class<T> type,Class<?>[] parameterTypes, Object... args）方法；
+                传入ApplicationContextInitializer.class和 new Class<?>[] {}。
+                  
+               
+         
