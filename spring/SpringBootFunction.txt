@@ -18,3 +18,6 @@ GenericTypeResolver.resolveTypeArgument(Class<?> clazz, Class<?> genericIfc);
  
  
  
+ ConfigurationClassEnhancer利用CGLIB生成动态类，动态添加了BeanFactoryAware接口，跟ImportAwareBeanPostProcessor.class配合给每个用注解@ConfigurationClass的类注入beanFactory工厂实例
+ 
+ 
